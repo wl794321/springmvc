@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - shop@localhost" uuid="618431f0-3c04-40fa-a0a3-959e935d406c">
+    <database-info product="MySQL" version="5.6.21-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="shop"/>
+    <table name="adminuser" schema="" catalog="shop" type="TABLE">
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="uid"/>
+    </table>
+    <table name="category" schema="" catalog="shop" type="TABLE">
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="cid"/>
+      <exported-key name="FK936FCAF21DB1FD15" table="categorysecond" schema="" catalog="shop" columns="cid"/>
+    </table>
+    <table name="categorysecond" schema="" catalog="shop" type="TABLE">
+      <column name="csid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="csname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="csid"/>
+      <foreign-key name="FK936FCAF21DB1FD15" columns="cid" ref-table="category" ref-schema="" ref-catalog="shop" ref-columns="cid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKED8DCCEFB9B74E02" table="product" schema="" catalog="shop" columns="csid"/>
+      <index name="FK936FCAF21DB1FD15" unique="false" columns="cid"/>
+    </table>
+    <table name="orderitem" schema="" catalog="shop" type="TABLE">
+      <column name="itemid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="subtotal" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="oid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="itemid"/>
+      <foreign-key name="FKE8B2AB6166C01961" columns="oid" ref-table="orders" ref-schema="" ref-catalog="shop" ref-columns="oid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKE8B2AB6171DB7AE4" columns="pid" ref-table="product" ref-schema="" ref-catalog="shop" ref-columns="pid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKE8B2AB6166C01961" unique="false" columns="oid"/>
+      <index name="FKE8B2AB6171DB7AE4" unique="false" columns="pid"/>
+    </table>
+    <table name="orders" schema="" catalog="shop" type="TABLE">
+      <column name="oid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="total" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="ordertime" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="state" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="21" scale="0" nullable="true" jdbcType="12"/>
+      <column name="addr" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="oid"/>
+      <foreign-key name="FKC3DF62E5AA3D9C7" columns="uid" ref-table="user" ref-schema="" ref-catalog="shop" ref-columns="uid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKE8B2AB6166C01961" table="orderitem" schema="" catalog="shop" columns="oid"/>
+      <index name="FKC3DF62E5AA3D9C7" unique="false" columns="uid"/>
+    </table>
+    <table name="product" schema="" catalog="shop" type="TABLE">
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="pname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="market_price" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="shop_price" sqlType="DOUBLE" precision="22" scale="0" nullable="true" jdbcType="8"/>
+      <column name="image" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pdesc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="is_hot" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="pdate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="csid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="pid"/>
+      <foreign-key name="FKED8DCCEFB9B74E02" columns="csid" ref-table="categorysecond" ref-schema="" ref-catalog="shop" ref-columns="csid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKE8B2AB6171DB7AE4" table="orderitem" schema="" catalog="shop" columns="pid"/>
+      <index name="FKED8DCCEFB9B74E02" unique="false" columns="csid"/>
+    </table>
+    <table name="user" schema="" catalog="shop" type="TABLE">
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="addr" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="state" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="code" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="uid"/>
+      <exported-key name="FKC3DF62E5AA3D9C7" table="orders" schema="" catalog="shop" columns="uid"/>
+    </table>
+  </data-source>
+</component>
